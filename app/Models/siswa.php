@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class siswa extends Model
 {
     use HasFactory;
+
+    protected $table = 'mapel';
+    
+    protected $guarded = [];
 }
