@@ -41,4 +41,5 @@ Route::get('/mapel/data',[MapelController::class, 'data'])->name('mapel.data');
 Route::resource('/mapel', MapelController::class );
 
 //route siswa
+Route::get('/siswa/data',[SiswaController::class, 'data'])->name('siswa.data');
 Route::resource('/siswa', SiswaController::class );

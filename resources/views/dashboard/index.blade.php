@@ -31,7 +31,7 @@
                     <p>Data Kelas</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-stats-bars"></i>
+                    <i class="fas fa-school"></i>
                 </div>
                 <a href="{{route('kelas.store')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -45,7 +45,7 @@
                     <p>Data Mapel</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-person-add"></i>
+                    <i class="fas fa-book-open"></i>
                 </div>
                 <a href="{{route('mapel.store')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -59,7 +59,7 @@
                     <p>Data Siswa</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-pie-graph"></i>
+                    <i class="fa fa-user-graduate"></i>
                 </div>
                 <a href="{{route('siswa.store')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
