@@ -5,7 +5,8 @@ use App\Http\Controllers\{
     GuruController,
     KelasController,
     MapelController,
-    SiswaController
+    SiswaController,
+    DashboardController,
 };
 
 /*
@@ -23,7 +24,11 @@ Route::get('/', function () {
     return view('layout.app');
 });
 
+// route dashboard
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
 //route guru
+Route::get('/guru/data',[GuruController::class, 'data'])->name('guru.data');
 Route::resource('/guru', GuruController::class );
 
 //route kelas

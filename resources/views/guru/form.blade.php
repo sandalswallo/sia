@@ -9,14 +9,21 @@ data-backdrop="static" data -keyboard="false">
                 </button>
             </div>
             <div class="modal-body">
-                <p>One fine body…</p>
-            </div>
-            <div class="modal-footer justify-content-between">
-               
-                <button type="button" class="btn btn-primary">Save changes</button>
+
+                <form action="" method="POST">
+                    @csrf
+                    @method('PUT')
+                    
+                    <div class="form-grup">
+                        <label for="nama">Nama</label>
+                        <input type="text" class="form-control" name="nama" id="nama">
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Simpan</button>
+                 </form>
+
             </div>
         </div>
-
     </div>
 
 </div>

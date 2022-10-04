@@ -42,6 +42,7 @@
                                 <th>No.</th>
                                 <th>Nama</th>
                                 <th>Kelas</th>
+                                <th>mapel</th>
                                 <th>Alamat</th>
                                 <th>Jenis Kelamin</th>
                                 <th>Aksi</th>
@@ -54,6 +55,7 @@
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$item->nama}}</td>
                                     <td>{{$item->kelas_id}}</td>
+                                    <td>{{$item->mapel_id}}</td>
                                     <td>{{$item->alamat}}</td>
                                     <td>{{$item->jenis_kelamin}}</td>
                                     <td>

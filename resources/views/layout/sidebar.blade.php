@@ -25,14 +25,14 @@
 
                 <li class="nav-header">DASHBOARD</li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link {{ request()->is('dashboard*') ? 'active' : ''}}">
+                    <a href="{{ route('dashboard.index') }}" class="nav-link {{ request()->is('dashboard*') ? 'active' : ''}}">
                         <i class="fas fa-yin-yang"></i>
                         <p>
                             Dashboard
                         </p>
                     </a>
                 
-                    <li class="nav-header">MASTER</li>
+                    <li class="nav-header">Dashboard</li>
                     <li class="nav-item">
                         <a href="{{ route('guru.index') }}" class="nav-link {{ request()->is('guru*') ? 'active' : ''}}">
                             <i class="fas fa-user-alt"></i>

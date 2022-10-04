@@ -18,6 +18,28 @@ class GuruController extends Controller
      return view('guru.index',compact('guru'));
     }
 
+    public function data()
+    {
+        $guru = Guru::orderBy('id', 'desc')->get();
+
+        return datatables()
+        ->of($guru)
+        ->addIndexColumn()
+        ->addColumn('aksi' , function($guru){
+            return '
+            <div class="btn-group">
+
+            <button onclick="editData(`' .route('guru.update', $guru->id). '`)" class="btn btn-flat btn-xs btn-warning"><i class="fa fa-edit"></i></button> 
+            <button onclick="deleteData(`' .route('guru.destroy', $guru->id). '`)" class="btn btn-flat btn-xs btn-danger"><i class="fa fa-trash"></i></button> 
+            
+            </div>
+            ';
+        })
+        ->rawColumns(['aksi'])
+        ->make(true);
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -36,7 +58,23 @@ class GuruController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'nama' => 'required'
+        ]);
+
+        if($validator -> fails()){
+            return response()->json($validator->errors(), 422);
+        }
+
+        $guru = Guru::create([
+            'nama' => $request->nama
+        ]);
+
+        return response()->json([
+            'succses' => true,
+            'message' => 'Data berhasil disimpan',
+            'data' => $guru
+        ]);
     }
 
     /**
@@ -45,9 +83,10 @@ class GuruController extends Controller
      * @param  \App\Models\Guru  $guru
      * @return \Illuminate\Http\Response
      */
-    public function show(Guru $guru)
+    public function show($id)
     {
-        //
+        $guru = Guru::find($id);
+        return response()->json($guru);
     }
 
     /**
@@ -68,9 +107,13 @@ class GuruController extends Controller
      * @param  \App\Models\Guru  $guru
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Guru $guru)
+    public function update(Request $request, $id)
     {
-        //
+        $guru= Guru::find($id);
+        $guru->nama = $request->nama;
+        $guru->update();
+        return response()->json('Data berhasil disimpan');
+
     }
 
     /**
@@ -79,8 +122,11 @@ class GuruController extends Controller
      * @param  \App\Models\Guru  $guru
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Guru $guru)
+    public function destroy( $id)
     {
-        //
+        $guru= Guru::find($id);
+        $guru->delete();
+
+        return response()->json(null, 204);
     }
 }
