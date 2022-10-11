@@ -32,6 +32,7 @@
                         </p>
                     </a>
                 
+                    @if(auth()->user()->role == 'admin')
                     <li class="nav-header">Dashboard</li>
                     <li class="nav-item">
                         <a href="{{ route('guru.index') }}" class="nav-link {{ request()->is('guru*') ? 'active' : ''}}">
@@ -72,7 +73,9 @@
                             </p>
                         </a>
 
-            </ul>
+          
+                        @endif
+                    </ul>
         </nav>
 
     </div>

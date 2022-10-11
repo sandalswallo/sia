@@ -6,9 +6,10 @@
 
 @section('content')
 
-<section class="content-header"></section>
+<section class="content-header">
 
     <div class="row">
+        @if(auth()->user()->role == 'admin')
         <div class="col-lg-3 col-6">
     
             <div class="small-box bg-info">
@@ -64,7 +65,30 @@
                 <a href="{{route('siswa.store')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
-    
-    </div>
+    @endif
 
+    @if(auth()->user()->role == 'siswa')
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="teks-primary">
+                    {{ !empty(auth()->user()->name) ? (auth()->user()->name)
+                    : ''}}
+                </h3>
+            </div>
+
+            <div class="card-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Mata Pelajaran</th>
+                        <th>Guru</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    @endif
+    </div>
+</section>
 @endsection

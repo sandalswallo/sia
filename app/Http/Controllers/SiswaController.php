@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\siswa;
 use App\Models\kelas;
 use App\Models\mapel;
+use App\Models\user;
 use Illuminate\Http\Request;
-use Validator;
+use Str;
+
 
 class SiswaController extends Controller
 {
@@ -29,8 +31,8 @@ class SiswaController extends Controller
         return datatables()
         ->of($siswa)
         ->addIndexColumn()
-        ->addColumn('mapel_id', function($siswa){
-            return !empty($siswa->mapel->nama) ? $siswa->mapel->nama : 'BELUM DI ISI';
+        ->addColumn('nama', function($siswa){
+            return '<a href="/siswa/profile/'.$siswa->id.'">'.$siswa->nama.'</a>';
         })
         ->addColumn('kelas_id', function($siswa){
             return !empty($siswa->kelas->nama) ? $siswa->kelas->nama : 'BELUM DI ISI';
@@ -44,7 +46,7 @@ class SiswaController extends Controller
             </div>
             ';
         })
-        ->rawColumns(['aksi', 'mapel_id', 'kelas_id'])
+        ->rawColumns(['aksi', 'mapel_id', 'kelas_id', 'nama'])
         ->make(true);
     }
 
@@ -69,21 +71,19 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
-            'nama' => 'required',
-            'jenis_kelamin' => 'required',
-            'alamat' => 'required',
-            'mapel_id' => 'required',
-            'kelas_id' => 'required'
-        ]);
+        
+        
+        $user = new User;
+        $user->role = 'siswa';
+        $user->name = $request->nama;
+        $user->email = $request->email;
+        $user->password = bcrypt('rahasia');
+        $user->remember_token = Str::random(20);
+        $user->save();
 
-       $siswa = Siswa::create([
-        'nama' => $request->nama,
-        'jenis_kelamin' => $request->jenis_kelamin,
-        'alamat' => $request->alamat,
-        'mapel_id' => $request->mapel_id,
-        'kelas_id' => $request->mapel_id
-       ]);
+        $request->request->add(['user_id' => $user->id]); 
+        $siswa = Siswa::create($request->all());
+         
 
        return response()->json([
         'success' => true,
@@ -147,5 +147,11 @@ class SiswaController extends Controller
         $siswa->delete();
 
         return response()->json(null, 204);
+    }
+
+    public function profile($id)
+    {
+        $siswa = Siswa::find($id);
+        return view('siswa.profile');
     }
 }

@@ -32,7 +32,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 
-Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => ['auth', 'checkrole:admin']], function(){
 
     // route dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
@@ -53,5 +53,11 @@ Route::group(['middleware' => 'auth'], function(){
     //route siswa
     Route::get('/siswa/data',[SiswaController::class, 'data'])->name('siswa.data');
     Route::resource('/siswa', SiswaController::class );
+    Route::get('/siswa/profile/{id}',[SiswaController::class, 'profile'])->name('siswa.profile');
 
+    
+});
+
+Route::group(['middleware' => ['auth', 'checkrole:admin,siswa']], function(){
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 });
